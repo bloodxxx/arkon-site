@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ГК АРКОН — Строительство металлокаркасов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c-dark:       #161616;
+      --c-dark-2:     #1E1E1E;
+      --c-dark-3:     #272727;
+      --c-gray:       #333;
+      --c-gray-mid:   #555;
+      --c-gray-light: #888;
+      --c-red:        #D42020;
+      --c-red-dark:   #A81818;
+      --c-white:      #F0F0F0;
+      --c-white-dim:  #BABABA;
+      --font-h: 'Bebas Neue', sans-serif;
+      --font-b: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--c-dark);
+      color: var(--c-white);
+      font-family: var(--font-b);
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(16,16,16,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212,32,32,0.25);
+      transition: padding 0.35s ease;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .nav-logo img { height: 42px; width: auto; }
+
+    .nav-logo-text {
+      font-family: var(--font-h);
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--c-white);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--c-white-dim);
+      text-decoration: none;
+      font-family: var(--font-h);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--c-red);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover { color: var(--c-white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-phone {
+      font-family: var(--font-h);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--c-red);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .nav-phone:hover { color: var(--c-white); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('source/img/done_tsprof.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      filter: brightness(0.28) saturate(0.6);
+      animation: slow-zoom 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes slow-zoom {
+      from { transform: scale(1.04); }
+      to   { transform: scale(1.12); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        rgba(16,16,16,0.92) 0%,
+        rgba(16,16,16,0.55) 55%,
+        rgba(40,8,8,0.65) 100%
+      );
+    }
+
+    .hero-accent-bar {
+      position: absolute;
+      top: 0; right: 0;
+      width: 5px; height: 100%;
+      background: var(--c-red);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 64px;
+      padding-top: 90px;
+      max-width: 880px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--c-red);
+      margin-bottom: 22px;
+    }
+
+    .hero-title {
+      font-family: var(--font-h);
+      font-size: clamp(4rem, 8vw, 8.5rem);
+      font-weight: 700;
+      line-height: 0.93;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--c-white);
+      margin-bottom: 10px;
+    }
+
+    .hero-title .accent { color: var(--c-red); display: block; }
+
+    .hero-sub {
+      font-family: var(--font-h);
+      font-size: clamp(1rem, 2vw, 1.55rem);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-white-dim);
+      margin-bottom: 38px;
+    }
+
+    .hero-desc {
+      font-size: 0.97rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(186,186,186,0.85);
+      max-width: 530px;
+      margin-bottom: 52px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn-red {
+      display: inline-block;
+      padding: 15px 46px;
+      background: var(--c-red);
+      color: var(--c-white);
+      font-family: var(--font-h);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--c-red);
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 14px 100%);
+      transition: background 0.22s, color 0.22s, transform 0.15s;
+    }
+
+    .btn-red:hover {
+      background: transparent;
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 15px 46px;
+      background: transparent;
+      color: var(--c-white);
+      font-family: var(--font-h);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.28);
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 14px 100%);
+      transition: border-color 0.22s, transform 0.15s;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.75);
+      transform: translateY(-2px);
+    }
+
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--c-red);
+      padding: 26px 64px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-number {
+      font-family: var(--font-h);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--c-white);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-family: var(--font-h);
+      font-size: 0.67rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      margin-top: 6px;
+    }
+
+    .stat-sep {
+      width: 1px; height: 50px;
+      background: rgba(255,255,255,0.22);
+    }
+
+    /* ===== SECTION BASE ===== */
+    .sec { padding: 100px 64px; }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--c-red);
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-family: var(--font-h);
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--c-white);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title em {
+      color: var(--c-red);
+      font-style: normal;
+    }
+
+    /* ===== ABOUT ===== */
+    .about {
+      background: var(--c-dark-2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .about-text .section-title { margin-bottom: 30px; }
+
+    .about-text p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--c-white-dim);
+      margin-bottom: 18px;
+    }
+
+    .about-image { position: relative; }
+
+    .about-image::before {
+      content: '';
+      position: absolute;
+      top: -18px; left: -18px;
+      right: 18px; bottom: 18px;
+      border: 2px solid var(--c-red);
+      z-index: 0;
+    }
+
+    .about-image img {
+      position: relative;
+      z-index: 1;
+      width: 100%; height: 480px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.6) brightness(0.85);
+    }
+
+    /* ===== SERVICES ===== */
+    .services { background: var(--c-dark); }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: #2A2A2A;
+    }
+
+    .service-card {
+      background: var(--c-dark-2);
+      padding: 44px 38px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: var(--c-red);
+      transition: width 0.4s ease;
+    }
+
+    .service-card:hover { background: var(--c-dark-3); }
+    .service-card:hover::after { width: 100%; }
+
+    .svc-num {
+      font-family: var(--font-h);
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(212,32,32,0.1);
+      line-height: 1;
+      margin-bottom: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .svc-line {
+      width: 44px; height: 2px;
+      background: var(--c-red);
+      margin-bottom: 20px;
+    }
+
+    .svc-title {
+      font-family: var(--font-h);
+      font-size: 1.08rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--c-white);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .svc-desc {
+      font-size: 0.87rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--c-white-dim);
+      margin-bottom: 22px;
+    }
+
+    .svc-price {
+      font-family: var(--font-h);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--c-red);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== ADVANTAGES ===== */
+    .advantages { background: var(--c-dark-2); }
+
+    .adv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+      margin-top: 56px;
+    }
+
+    .adv-card {
+      display: flex;
+      gap: 26px;
+      padding: 38px 36px;
+      background: var(--c-dark);
+      border-left: 3px solid var(--c-red);
+      transition: transform 0.22s;
+    }
+
+    .adv-card:hover { transform: translateX(7px); }
+
+    .adv-n {
+      font-family: var(--font-h);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--c-red);
+      line-height: 1;
+      min-width: 56px;
+      opacity: 0.65;
+    }
+
+    .adv-title {
+      font-family: var(--font-h);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--c-white);
+      margin-bottom: 10px;
+    }
+
+    .adv-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--c-white-dim);
+    }
+
+    /* ===== PROCESS ===== */
+    .process { background: var(--c-dark); }
+
+    .process-track {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .process-track::before {
+      content: '';
+      position: absolute;
+      top: 29px; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(212,32,32,0.45), transparent);
+    }
+
+    .step {
+      text-align: center;
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .step-circle {
+      width: 58px; height: 58px;
+      border: 2px solid var(--c-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-h);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--c-red);
+      margin: 0 auto 22px;
+      background: var(--c-dark);
+      position: relative;
+      z-index: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .step:hover .step-circle {
+      background: var(--c-red);
+      color: var(--c-white);
+    }
+
+    .step-title {
+      font-family: var(--font-h);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--c-white);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .step-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--c-white-dim);
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery {
+      padding: 0;
+      background: var(--c-dark);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 300px 300px;
+      gap: 4px;
+    }
+
+    .gal-item {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gal-item:first-child { grid-row: span 2; }
+
+    .gal-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.55) brightness(0.8);
+      transition: transform 0.65s ease, filter 0.4s ease;
+      display: block;
+    }
+
+    .gal-item:hover img {
+      transform: scale(1.07);
+      filter: saturate(0.85) brightness(0.95);
+    }
+
+    .gal-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(212,32,32,0);
+      transition: background 0.3s;
+      pointer-events: none;
+    }
+
+    .gal-item:hover::after { background: rgba(212,32,32,0.07); }
+
+    /* Gallery header above */
+    .gallery-header {
+      padding: 100px 64px 50px;
+      background: var(--c-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      background: var(--c-red);
+      padding: 90px 64px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .cta-title {
+      font-family: var(--font-h);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--c-white);
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+    }
+
+    .cta-sub {
+      font-size: 0.97rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      margin-top: 16px;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .cta-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .cta-input {
+      flex: 1;
+      min-width: 180px;
+      padding: 13px 20px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--c-white);
+      font-family: var(--font-b);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .cta-input::placeholder { color: rgba(255,255,255,0.5); }
+    .cta-input:focus { border-color: rgba(255,255,255,0.7); }
+
+    .btn-dark {
+      padding: 13px 34px;
+      background: var(--c-dark);
+      color: var(--c-white);
+      font-family: var(--font-h);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 2px solid var(--c-dark);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-dark:hover {
+      background: transparent;
+      color: var(--c-dark);
+    }
+
+    .cta-phone-block { text-align: right; }
+
+    .cta-phone-label {
+      font-family: var(--font-h);
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+    }
+
+    .cta-phone {
+      display: block;
+      font-family: var(--font-h);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--c-white);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .cta-phone:hover { opacity: 0.75; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0D0D0D;
+      padding: 64px 64px 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #2A2A2A;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .footer-logo img { height: 48px; }
+
+    .footer-logo-name {
+      font-family: var(--font-h);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-white);
+    }
+
+    .footer-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--c-white-dim);
+    }
+
+    .footer-col-label {
+      font-family: var(--font-h);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--c-red);
+      margin-bottom: 22px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .footer-links a {
+      color: var(--c-white-dim);
+      text-decoration: none;
+      font-size: 0.87rem;
+      font-weight: 300;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--c-white); }
+
+    .contact-row {
+      margin-bottom: 22px;
+    }
+
+    .contact-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-gray-light);
+      margin-bottom: 4px;
+    }
+
+    .contact-value {
+      font-family: var(--font-h);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--c-white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a.contact-value:hover { color: var(--c-red); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--c-gray-light);
+    }
+
+    .footer-geo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--c-gray-light);
+    }
+
+    .geo-dot {
+      width: 7px; height: 7px;
+      background: var(--c-red);
+      border-radius: 50%;
+      animation: geo-blink 2.2s ease-in-out infinite;
+    }
+
+    @keyframes geo-blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.18; }
+    }
+
+    .adv-desc strong {
+      font-weight: 600;
+      color: var(--c-white);
+    }
+
+    /* ===== FADE-UP ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.72s ease, transform 0.72s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== HAMBURGER ===== */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--c-white);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(16,16,16,0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 38px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: var(--font-h);
+      font-size: 2.4rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover { color: var(--c-red); }
+
+    .mobile-menu-phone {
+      font-family: var(--font-h);
+      font-size: 1.5rem;
+      color: var(--c-red) !important;
+      margin-top: 20px;
+    }
+
+    /* ===== RESPONSIVE TABLET ===== */
+    @media (max-width: 1080px) {
+      nav { padding: 16px 30px; }
+      .nav-links { display: none; }
+      .nav-phone { display: none; }
+      .burger { display: flex; }
+      .sec { padding: 72px 30px; }
+      .hero-content { padding: 100px 24px 0; }
+      .stats-bar { padding: 22px 24px; gap: 14px; }
+      .about { grid-template-columns: 1fr; gap: 40px; padding: 72px 30px; }
+      .services-grid { grid-template-columns: repeat(2,1fr); }
+      .adv-grid { grid-template-columns: 1fr; }
+      .process-track { grid-template-columns: repeat(3,1fr); gap: 30px; }
+      .gallery-header { padding: 72px 30px 40px; }
+      .cta-section { grid-template-columns: 1fr; padding: 72px 30px; }
+      .cta-phone-block { text-align: left; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      footer { padding: 50px 30px 32px; }
+    }
+
+    /* ===== RESPONSIVE MOBILE ===== */
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+
+      .nav-logo img { height: 34px; }
+      .nav-logo-text { font-size: 1.2rem; }
+
+      .hero { min-height: 100svh; }
+      .hero-content { padding: 90px 20px 0; }
+      .hero-title { font-size: clamp(3rem, 16vw, 4rem); line-height: 0.9; }
+      .hero-sub { font-size: 0.85rem; letter-spacing: 0.08em; margin-bottom: 24px; }
+      .hero-desc { font-size: 0.88rem; margin-bottom: 36px; }
+      .btn-red, .btn-ghost { padding: 13px 28px; font-size: 0.78rem; }
+      .hero-cta { gap: 12px; }
+
+      .stats-bar {
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 10px;
+      }
+      .stat-sep { display: none; }
+      .stat-number { font-size: 2rem; }
+
+      .sec { padding: 56px 20px; }
+
+      .about { padding: 56px 20px; gap: 32px; }
+      .about-image::before { display: none; }
+      .about-image img { height: 260px; }
+      .section-title { font-size: 2.2rem; }
+
+      .services-grid { grid-template-columns: 1fr; gap: 2px; }
+      .service-card { padding: 32px 24px; }
+      .svc-num { font-size: 2.8rem; }
+
+      .adv-card { padding: 26px 20px; gap: 18px; flex-direction: column; }
+      .adv-n { font-size: 2.2rem; min-width: auto; }
+
+      .process-track {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-top: 40px;
+      }
+      .process-track::before { display: none; }
+      .step { text-align: left; display: flex; gap: 18px; align-items: flex-start; }
+      .step-circle { margin: 0; flex-shrink: 0; width: 48px; height: 48px; font-size: 1rem; }
+
+      .gallery-header { padding: 56px 20px 32px; }
+      .gallery-grid {
+        display: flex;
+        flex-direction: column;
+      }
+      .gal-item { height: 220px; }
+      .gal-item:first-child { height: 260px; }
+
+      .cta-section { padding: 56px 20px; gap: 36px; }
+      .cta-title { font-size: 1.8rem; }
+      .cta-form { flex-direction: column; }
+      .cta-input { width: 100%; }
+      .btn-dark { width: 100%; text-align: center; padding: 14px; }
+      .cta-phone { font-size: 1.7rem; }
+
+      footer { padding: 44px 20px 32px; }
+      .footer-top { gap: 32px; }
+      .footer-logo img { height: 38px; }
+      .footer-logo-name { font-size: 1.25rem; }
+
+      .services-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" class="menu-link">Услуги</a>
+    <a href="#advantages" class="menu-link">О нас</a>
+    <a href="#gallery" class="menu-link">Объекты</a>
+    <a href="#contact" class="menu-link">Контакты</a>
+    <a href="tel:+79127502877" class="menu-link mobile-menu-phone">+7 (912) 750-28-77</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#home" class="nav-logo">
+      <img src="source/img/logo.png" alt="ГК АРКОН">
+      <span class="nav-logo-text">АРКОН</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#advantages">О нас</a></li>
+      <li><a href="#gallery">Объекты</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+    <a href="tel:+79127502877" class="nav-phone">+7 (912) 750-28-77</a>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-accent-bar"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Группа Компаний</div>
+      <h1 class="hero-title">
+        ГК<br>
+        <span class="accent">АРКОН</span>
+      </h1>
+      <div class="hero-sub">Строительство металлокаркасов</div>
+      <p class="hero-desc">
+        Возводим склады, ангары, производственные цеха и торговые павильоны из металлоконструкций и сэндвич-панелей. Инженерный подход — на 15–20% быстрее рынка.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-red">Получить расчет</a>
+        <a href="#services" class="btn-ghost">Наши услуги</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number">500+</div>
+      <div class="stat-label">Объектов построено</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Лет на рынке</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <div class="stat-number">-20%</div>
+      <div class="stat-label">К срокам рынка</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <div class="stat-number">РФ</div>
+      <div class="stat-label">Работаем по России</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about sec" id="about">
+    <div class="about-text fade-up">
+      <div class="section-eyebrow">О компании</div>
+      <h2 class="section-title">
+        Инженерный<br>
+        подход к<br>
+        <em>строительству</em>
+      </h2>
+      <p>
+        Мы — опытная бригада строителей-монтажников с инженерным образованием. Специализируемся на возведении зданий любой сложности: склады, ангары, производственные цеха, торговые павильоны, автосервисы.
+      </p>
+      <p>
+        Знаем, как снизить металлоемкость и стоимость материалов без потери прочности. Предлагаем решения, которые экономят ваш бюджет уже на этапе планирования. Каждый проект — индивидуальный расчет с учетом нагрузок и климатических условий.
+      </p>
+    </div>
+    <div class="about-image fade-up">
+      <img src="source/img/done_panel.jpg" alt="Готовый объект АРКОН">
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services sec" id="services">
+    <div class="services-header">
+      <div>
+        <div class="section-eyebrow">Что мы делаем</div>
+        <h2 class="section-title">Наши <em>услуги</em></h2>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="svc-num">01</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Монтаж металлокаркасов</div>
+        <p class="svc-desc">Сварные и болтовые соединения в соответствии с чертежами заказчика. Точный инженерный расчет нагрузок конструкции.</p>
+        <div class="svc-price">от 20 000 руб./тонна</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="svc-num">02</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Стеновые сэндвич-панели</div>
+        <p class="svc-desc">Монтаж стеновых панелей ПИР, ПУР и минвата. Тепло- и звукоизоляция в соответствии с требованиями объекта.</p>
+        <div class="svc-price">800 руб./м²</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="svc-num">03</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Кровельные панели</div>
+        <p class="svc-desc">Монтаж кровельных сэндвич-панелей и кровельных систем с применением ПВХ мембраны.</p>
+        <div class="svc-price">от 1 000 руб./м²</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="svc-num">04</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Фундаментные работы</div>
+        <p class="svc-desc">Устройство фундаментов под быстровозводимые здания с расчетом геологии и проектных нагрузок.</p>
+        <div class="svc-price">По договорной стоимости</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="svc-num">05</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Фасонные элементы</div>
+        <p class="svc-desc">Монтаж фасонных элементов, установка доборных элементов, окон, дверей и ворот по периметру здания.</p>
+        <div class="svc-price">250 руб./м.п.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="svc-num">06</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Демонтаж и перенос</div>
+        <p class="svc-desc">Демонтаж и перенос существующих конструкций. Полное сопровождение с отчетностью и исполнительной документацией.</p>
+        <div class="svc-price">По договорной стоимости</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES -->
+  <section class="advantages sec" id="advantages">
+    <div class="section-eyebrow">Почему выбирают нас</div>
+    <h2 class="section-title">Наши <em>преимущества</em></h2>
+    <div class="adv-grid">
+      <div class="adv-card fade-up">
+        <div class="adv-n">01</div>
+        <div>
+          <div class="adv-title">Оптимизация проекта</div>
+          <p class="adv-desc">Знаем, как снизить металлоемкость и стоимость материалов без потери прочности. Предлагаем решения, <strong>экономящие ваш бюджет</strong> уже на этапе планирования.</p>
+        </div>
+      </div>
+      <div class="adv-card fade-up">
+        <div class="adv-n">02</div>
+        <div>
+          <div class="adv-title">Инженерный расчет</div>
+          <p class="adv-desc">Технические расчеты с учетом нагрузок, климатических условий региона и специфики вашего бизнеса. <strong>Индивидуальный подход</strong> к каждому фундаменту и каркасу.</p>
+        </div>
+      </div>
+      <div class="adv-card fade-up">
+        <div class="adv-n">03</div>
+        <div>
+          <div class="adv-title">Скорость без потери качества</div>
+          <p class="adv-desc">Отработанные технологии монтажа позволяют сокращать сроки возведения на <strong>15–20% быстрее</strong> рыночных стандартов — без компромиссов по качеству.</p>
+        </div>
+      </div>
+      <div class="adv-card fade-up">
+        <div class="adv-n">04</div>
+        <div>
+          <div class="adv-title">Полное сопровождение</div>
+          <p class="adv-desc">Берем на себя всё — от контроля поставок до исполнительной документации. <strong>Регулярная отчетность и полный порядок в документах</strong> для сдачи объекта.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process sec" id="process">
+    <div class="section-eyebrow">Как мы работаем</div>
+    <h2 class="section-title">Этапы <em>работы</em></h2>
+    <div class="process-track">
+      <div class="step fade-up">
+        <div class="step-circle">01</div>
+        <div class="step-title">Консультация</div>
+        <p class="step-desc">Обсуждаем объект, делаем предварительный расчет стоимости</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-circle">02</div>
+        <div class="step-title">Проектирование</div>
+        <p class="step-desc">Инженерный расчет с учетом нагрузок и климата региона</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-circle">03</div>
+        <div class="step-title">Договор</div>
+        <p class="step-desc">Фиксируем сроки, этапы и стоимость в договоре</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-circle">04</div>
+        <div class="step-title">Монтаж</div>
+        <p class="step-desc">Строительство с регулярной фото/видео отчетностью</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-circle">05</div>
+        <div class="step-title">Сдача объекта</div>
+        <p class="step-desc">Акты скрытых работ и полная исполнительная документация</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <div id="gallery">
+    <div class="gallery-header">
+      <div>
+        <div class="section-eyebrow">Наши работы</div>
+        <h2 class="section-title">Реализованные <em>объекты</em></h2>
+      </div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gal-item">
+        <img src="source/img/done_tsprof.jpg" alt="Металлокаркас здания">
+      </div>
+      <div class="gal-item">
+        <img src="source/img/done_panel.jpg" alt="Сэндвич-панели">
+      </div>
+      <div class="gal-item">
+        <img src="source/img/install_panel.jpg" alt="Монтаж панелей">
+      </div>
+      <div class="gal-item">
+        <img src="source/img/done_floor.jpg" alt="Готовый пол">
+      </div>
+      <div class="gal-item">
+        <img src="source/img/done_tsprof.jpg" alt="Каркас конструкции">
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div>
+      <h2 class="cta-title">Готовы обсудить<br>ваш объект?</h2>
+      <p class="cta-sub">
+        Проконсультируем, сделаем предварительный расчет стоимости и предложим варианты оптимизации сроков и затрат. Работаем по договору с фиксированной стоимостью.
+      </p>
+      <form class="cta-form" onsubmit="return false;">
+        <input class="cta-input" type="text" placeholder="Ваше имя">
+        <input class="cta-input" type="tel" placeholder="Номер телефона">
+        <button class="btn-dark" type="submit">Отправить</button>
+      </form>
+    </div>
+    <div class="cta-phone-block">
+      <div class="cta-phone-label">Звоните прямо сейчас</div>
+      <a href="tel:+79127502877" class="cta-phone">+7 (912) 750-28-77</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="source/img/logo.png" alt="ГК АРКОН">
+          <span class="footer-logo-name">АРКОН</span>
+        </div>
+        <p class="footer-desc">
+          Группа Компаний АРКОН — строительство быстровозводимых зданий из металлоконструкций и сэндвич-панелей. Инженерный подход, фиксированные сроки, гарантия по договору.
+        </p>
+      </div>
+      <div>
+        <div class="footer-col-label">Услуги</div>
+        <ul class="footer-links">
+          <li><a href="#services">Монтаж металлокаркасов</a></li>
+          <li><a href="#services">Стеновые сэндвич-панели</a></li>
+          <li><a href="#services">Кровельные панели</a></li>
+          <li><a href="#services">Фундаментные работы</a></li>
+          <li><a href="#services">Фасонные элементы</a></li>
+          <li><a href="#services">Демонтаж конструкций</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-label">Контакты</div>
+        <div class="contact-row">
+          <div class="contact-label">Руководитель</div>
+          <div class="contact-value">Кудрявцев Василий Владимирович</div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label">Телефон</div>
+          <a href="tel:+79127502877" class="contact-value">+7 (912) 750-28-77</a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label">Работаем</div>
+          <div class="contact-value">По всей России</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll fade-in
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+    // Compact nav on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      const compact = window.scrollY > 80;
+      nav.style.padding = compact ? '11px 64px' : '18px 64px';
+    }, { passive: true });
+
+    // Burger menu
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    mobileMenu.querySelectorAll('.menu-link').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+</body>
+</html>
