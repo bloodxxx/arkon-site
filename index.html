@@ -11,10 +11,10 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --c-dark:       #161616;
-      --c-dark-2:     #1E1E1E;
-      --c-dark-3:     #272727;
-      --c-gray:       #333;
+      --c-dark:       #1C1C1C;
+      --c-dark-2:     #242424;
+      --c-dark-3:     #2E2E2E;
+      --c-gray:       #3A3A3A;
       --c-gray-mid:   #555;
       --c-gray-light: #888;
       --c-red:        #D42020;
@@ -44,7 +44,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(16,16,16,0.93);
+      background: rgba(24,24,24,0.93);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(212,32,32,0.25);
       transition: padding 0.35s ease;
@@ -124,26 +124,34 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('source/img/done_tsprof.jpg');
-      background-size: cover;
-      background-position: center 40%;
-      filter: brightness(0.28) saturate(0.6);
-      animation: slow-zoom 22s ease-in-out infinite alternate;
+      overflow: hidden;
     }
 
-    @keyframes slow-zoom {
-      from { transform: scale(1.04); }
-      to   { transform: scale(1.12); }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 45%;
+      filter: brightness(0.75) saturate(0.7);
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 1.6s ease, transform 8s ease-in-out;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1.12);
     }
 
     .hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        120deg,
-        rgba(16,16,16,0.92) 0%,
-        rgba(16,16,16,0.55) 55%,
-        rgba(40,8,8,0.65) 100%
+        100deg,
+        rgba(16,16,16,0.95) 0%,
+        rgba(18,18,18,0.85) 32%,
+        rgba(20,20,20,0.35) 62%,
+        rgba(46,12,12,0.4) 100%
       );
     }
 
@@ -360,7 +368,7 @@
       width: 100%; height: 480px;
       object-fit: cover;
       display: block;
-      filter: saturate(0.6) brightness(0.85);
+      filter: saturate(0.7) brightness(0.95);
     }
 
     /* ===== SERVICES ===== */
@@ -377,14 +385,14 @@
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2px;
       background: #2A2A2A;
     }
 
     .service-card {
       background: var(--c-dark-2);
-      padding: 44px 38px;
+      padding: 40px 30px;
       position: relative;
       overflow: hidden;
       transition: background 0.3s;
@@ -440,9 +448,9 @@
 
     .svc-price {
       font-family: var(--font-h);
-      font-size: 1rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      color: var(--c-red);
+      color: var(--c-white);
       letter-spacing: 0.04em;
     }
 
@@ -566,49 +574,157 @@
       color: var(--c-white-dim);
     }
 
-    /* ===== GALLERY ===== */
+    /* ===== GALLERY (objects) ===== */
     .gallery {
-      padding: 0;
+      padding: 0 64px 100px;
       background: var(--c-dark);
     }
 
+    /* brick-style staggered masonry */
     .gallery-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: 300px 300px;
-      gap: 4px;
+      column-count: 3;
+      column-gap: 24px;
     }
 
-    .gal-item {
-      overflow: hidden;
+    .obj-card {
+      break-inside: avoid;
+      margin-bottom: 24px;
+      background: var(--c-dark-2);
+      border: 1px solid #303030;
+      border-top: 3px solid var(--c-red);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* slider inside card */
+    .obj-slider {
       position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #161616;
     }
 
-    .gal-item:first-child { grid-row: span 2; }
-
-    .gal-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: saturate(0.55) brightness(0.8);
-      transition: transform 0.65s ease, filter 0.4s ease;
-      display: block;
-    }
-
-    .gal-item:hover img {
-      transform: scale(1.07);
-      filter: saturate(0.85) brightness(0.95);
-    }
-
-    .gal-item::after {
-      content: '';
+    .obj-slide {
       position: absolute;
       inset: 0;
-      background: rgba(212,32,32,0);
-      transition: background 0.3s;
-      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
-    .gal-item:hover::after { background: rgba(212,32,32,0.07); }
+    .obj-slide.active { opacity: 1; }
+
+    .obj-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.78) brightness(0.92);
+    }
+
+    .obj-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px; height: 40px;
+      background: rgba(20,20,20,0.55);
+      border: none;
+      color: var(--c-white);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 2;
+    }
+
+    .obj-arrow:hover { background: var(--c-red); }
+    .obj-arrow.prev { left: 0; }
+    .obj-arrow.next { right: 0; }
+    .obj-arrow.solo { display: none; }
+
+    .obj-dots {
+      position: absolute;
+      bottom: 12px; left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      z-index: 2;
+    }
+
+    .obj-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .obj-dot.active { background: var(--c-red); transform: scale(1.25); }
+    .obj-dots.solo { display: none; }
+
+    .obj-count {
+      position: absolute;
+      top: 12px; right: 12px;
+      z-index: 2;
+      font-family: var(--font-h);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      background: rgba(20,20,20,0.6);
+      color: var(--c-white);
+    }
+
+    .obj-count.solo { display: none; }
+
+    .obj-body { padding: 24px 26px 26px; }
+
+    .obj-name {
+      font-family: var(--font-h);
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--c-white);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .obj-addr {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.87rem;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--c-white-dim);
+      margin-bottom: 16px;
+    }
+
+    .obj-addr .geo-pin {
+      flex-shrink: 0;
+      width: 7px; height: 7px;
+      margin-top: 6px;
+      background: var(--c-red);
+      border-radius: 50%;
+    }
+
+    .obj-map {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-h);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-red);
+      text-decoration: none;
+      transition: gap 0.2s, color 0.2s;
+    }
+
+    .obj-map:hover { color: var(--c-white); gap: 13px; }
+    .obj-map::after { content: '→'; }
 
     /* Gallery header above */
     .gallery-header {
@@ -623,13 +739,29 @@
 
     /* ===== CTA ===== */
     .cta-section {
-      background: var(--c-red);
-      padding: 90px 64px;
+      position: relative;
+      background: var(--c-dark-2);
+      border-top: 3px solid var(--c-red);
+      padding: 60px 64px;
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 70px;
       align-items: center;
+      overflow: hidden;
     }
+
+    /* subtle red glow, static — no flicker */
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(212,32,32,0.16), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-main { position: relative; z-index: 1; }
+    .cta-section .section-eyebrow { margin-bottom: 16px; }
 
     .cta-title {
       font-family: var(--font-h);
@@ -641,66 +773,95 @@
       letter-spacing: 0.02em;
     }
 
+    .cta-title em { color: var(--c-red); font-style: normal; }
+
     .cta-sub {
       font-size: 0.97rem;
       font-weight: 300;
-      color: rgba(255,255,255,0.8);
-      margin-top: 16px;
-      line-height: 1.7;
+      color: var(--c-white-dim);
+      margin-top: 14px;
+      line-height: 1.6;
       max-width: 520px;
     }
 
     .cta-form {
       display: flex;
       gap: 10px;
-      margin-top: 32px;
+      margin-top: 24px;
       flex-wrap: wrap;
+      max-width: 640px;
     }
 
     .cta-input {
       flex: 1;
       min-width: 180px;
-      padding: 13px 20px;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.3);
+      padding: 14px 20px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.18);
       color: var(--c-white);
       font-family: var(--font-b);
       font-size: 0.9rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
     }
 
-    .cta-input::placeholder { color: rgba(255,255,255,0.5); }
-    .cta-input:focus { border-color: rgba(255,255,255,0.7); }
+    .cta-input::placeholder { color: rgba(255,255,255,0.4); }
+    .cta-input:focus { border-color: var(--c-red); background: rgba(0,0,0,0.35); }
 
     .btn-dark {
-      padding: 13px 34px;
-      background: var(--c-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 38px;
+      background: var(--c-red);
       color: var(--c-white);
       font-family: var(--font-h);
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       font-weight: 600;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      border: 2px solid var(--c-dark);
+      border: 2px solid var(--c-red);
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
       white-space: nowrap;
+      box-shadow: 0 6px 24px rgba(212,32,32,0.28);
+    }
+
+    .btn-dark::after {
+      content: '→';
+      transition: transform 0.2s;
     }
 
     .btn-dark:hover {
-      background: transparent;
-      color: var(--c-dark);
+      background: var(--c-red-dark);
+      border-color: var(--c-red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212,32,32,0.4);
     }
 
-    .cta-phone-block { text-align: right; }
+    .btn-dark:hover::after { transform: translateX(4px); }
+
+    .cta-note {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--c-gray-light);
+      margin-top: 14px;
+    }
+
+    .cta-phone-block {
+      position: relative;
+      z-index: 1;
+      text-align: right;
+      border-left: 1px solid #383838;
+      padding-left: 70px;
+    }
 
     .cta-phone-label {
       font-family: var(--font-h);
       font-size: 0.68rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
+      color: var(--c-gray-light);
       margin-bottom: 8px;
     }
 
@@ -713,14 +874,21 @@
       text-decoration: none;
       letter-spacing: 0.02em;
       white-space: nowrap;
-      transition: opacity 0.2s;
+      transition: color 0.2s;
     }
 
-    .cta-phone:hover { opacity: 0.75; }
+    .cta-phone:hover { color: var(--c-red); }
+
+    .cta-phone-sub {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--c-gray-light);
+      margin-top: 10px;
+    }
 
     /* ===== FOOTER ===== */
     footer {
-      background: #0D0D0D;
+      background: #141414;
       padding: 64px 64px 40px;
     }
 
@@ -887,7 +1055,7 @@
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(16,16,16,0.98);
+      background: rgba(24,24,24,0.98);
       z-index: 99;
       flex-direction: column;
       align-items: center;
@@ -918,6 +1086,10 @@
     }
 
     /* ===== RESPONSIVE TABLET ===== */
+    @media (max-width: 1280px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 1080px) {
       nav { padding: 16px 30px; }
       .nav-links { display: none; }
@@ -931,8 +1103,10 @@
       .adv-grid { grid-template-columns: 1fr; }
       .process-track { grid-template-columns: repeat(3,1fr); gap: 30px; }
       .gallery-header { padding: 72px 30px 40px; }
+      .gallery { padding: 0 30px 72px; }
+      .gallery-grid { column-count: 2; column-gap: 20px; }
       .cta-section { grid-template-columns: 1fr; padding: 72px 30px; }
-      .cta-phone-block { text-align: left; }
+      .cta-phone-block { text-align: left; border-left: none; padding-left: 0; }
       .footer-top { grid-template-columns: 1fr; gap: 40px; }
       footer { padding: 50px 30px 32px; }
     }
@@ -985,18 +1159,14 @@
       .step-circle { margin: 0; flex-shrink: 0; width: 48px; height: 48px; font-size: 1rem; }
 
       .gallery-header { padding: 56px 20px 32px; }
-      .gallery-grid {
-        display: flex;
-        flex-direction: column;
-      }
-      .gal-item { height: 220px; }
-      .gal-item:first-child { height: 260px; }
+      .gallery { padding: 0 20px 56px; }
+      .gallery-grid { column-count: 1; }
 
       .cta-section { padding: 56px 20px; gap: 36px; }
       .cta-title { font-size: 1.8rem; }
       .cta-form { flex-direction: column; }
       .cta-input { width: 100%; }
-      .btn-dark { width: 100%; text-align: center; padding: 14px; }
+      .btn-dark { width: 100%; justify-content: center; padding: 15px; }
       .cta-phone { font-size: 1.7rem; }
 
       footer { padding: 44px 20px 32px; }
@@ -1039,7 +1209,13 @@
 
   <!-- HERO -->
   <section class="hero" id="home">
-    <div class="hero-bg"></div>
+    <div class="hero-bg" id="heroBg">
+      <div class="hero-slide active" style="background-image:url('source/img/tsprof/tsprof.png')"></div>
+      <div class="hero-slide" style="background-image:url('source/img/raketa/raketa.png')"></div>
+      <div class="hero-slide" style="background-image:url('source/img/paryc/paryc.png')"></div>
+      <div class="hero-slide" style="background-image:url('source/img/magnit/magnit.png')"></div>
+      <div class="hero-slide" style="background-image:url('source/img/avtoservice/avtoservice.png')"></div>
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-accent-bar"></div>
 
@@ -1101,7 +1277,7 @@
       </p>
     </div>
     <div class="about-image fade-up">
-      <img src="source/img/done_panel.jpg" alt="Готовый объект АРКОН">
+      <img src="source/img/paryc/paryc.png" alt="Готовый объект АРКОН" loading="lazy">
     </div>
   </section>
 
@@ -1131,7 +1307,7 @@
       <div class="service-card fade-up">
         <div class="svc-num">3</div>
         <div class="svc-line"></div>
-        <div class="svc-title">Кровельные панели</div>
+        <div class="svc-title">Монтаж кровельных систем</div>
         <p class="svc-desc">Монтаж кровельных сэндвич-панелей и кровельных систем с применением ПВХ мембраны.</p>
         <div class="svc-price">от 1 000 руб./м²</div>
       </div>
@@ -1155,6 +1331,20 @@
         <div class="svc-title">Демонтаж и перенос</div>
         <p class="svc-desc">Демонтаж и перенос существующих конструкций. Полное сопровождение с отчетностью и исполнительной документацией.</p>
         <div class="svc-price">По договорной стоимости</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="svc-num">7</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Производство металлоконструкций</div>
+        <p class="svc-desc">Изготовление металлоконструкций по чертежам заказчика. Колонны, балки, фермы и нестандартные элементы под ваш проект.</p>
+        <div class="svc-price">По договорной стоимости</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="svc-num">8</div>
+        <div class="svc-line"></div>
+        <div class="svc-title">Продажа строительных материалов</div>
+        <p class="svc-desc">Металлопрокат, сэндвич-панели, профнастил, крепеж и доборные элементы. Поставка материалов под объект напрямую.</p>
+        <div class="svc-price">По запросу</div>
       </div>
     </div>
   </section>
@@ -1236,41 +1426,98 @@
         <h2 class="section-title">Реализованные <em>объекты</em></h2>
       </div>
     </div>
-    <div class="gallery-grid">
-      <div class="gal-item">
-        <img src="source/img/done_tsprof.jpg" alt="Металлокаркас здания">
-      </div>
-      <div class="gal-item">
-        <img src="source/img/done_panel.jpg" alt="Сэндвич-панели">
-      </div>
-      <div class="gal-item">
-        <img src="source/img/install_panel.jpg" alt="Монтаж панелей">
-      </div>
-      <div class="gal-item">
-        <img src="source/img/done_floor.jpg" alt="Готовый пол">
-      </div>
-      <div class="gal-item">
-        <img src="source/img/done_tsprof.jpg" alt="Каркас конструкции">
+    <div class="gallery">
+      <div class="gallery-grid">
+
+        <article class="obj-card fade-up">
+          <div class="obj-slider" data-slider>
+            <div class="obj-slide active"><img src="source/img/tsprof/tsprof.png" alt="Техностудия Профиль" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/tsprof/tsprof_2.png" alt="Техностудия Профиль" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/tsprof/tsprof_working_1.jpg" alt="Монтаж — Техностудия Профиль" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/tsprof/tsprof_working_2.jpg" alt="Монтаж — Техностудия Профиль" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/tsprof/tsprof_working_3_vert.jpg" alt="Монтаж — Техностудия Профиль" loading="lazy"></div>
+          </div>
+          <div class="obj-body">
+            <h3 class="obj-name">Техностудия Профиль</h3>
+            <div class="obj-addr"><span class="geo-pin"></span>с. Первомайский, Кольцевая улица, 8</div>
+            <a class="obj-map" href="https://yandex.ru/profile/144068656634/" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </article>
+
+        <article class="obj-card fade-up">
+          <div class="obj-slider" data-slider>
+            <div class="obj-slide active"><img src="source/img/raketa/raketa.png" alt="Теннисный клуб Ракета" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/raketa/raketa_2.png" alt="Теннисный клуб Ракета" loading="lazy"></div>
+          </div>
+          <div class="obj-body">
+            <h3 class="obj-name">Теннисный клуб «Ракета»</h3>
+            <div class="obj-addr"><span class="geo-pin"></span>г. Ижевск, ул. Труда, 88Б</div>
+            <a class="obj-map" href="https://yandex.ru/maps/44/izhevsk/house/ulitsa_truda_88b/YUoYdA9lQEYDQFtsfXR0eX1mYA==/?ll=53.285933%2C56.858154&z=17" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </article>
+
+        <article class="obj-card fade-up">
+          <div class="obj-slider" data-slider>
+            <div class="obj-slide active"><img src="source/img/paryc/paryc.png" alt="Парус-Мебель" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/paryc/paryc_1.png" alt="Парус-Мебель" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/paryc/Image.png" alt="Парус-Мебель" loading="lazy"></div>
+          </div>
+          <div class="obj-body">
+            <h3 class="obj-name">Парус-Мебель</h3>
+            <div class="obj-addr"><span class="geo-pin"></span>с. Первомайский, Индустриальная ул., 1</div>
+            <a class="obj-map" href="https://yandex.ru/maps/org/parus_mebel_reeltika/115751720041/?ll=53.369638%2C56.858567&z=17" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </article>
+
+        <article class="obj-card fade-up">
+          <div class="obj-slider" data-slider>
+            <div class="obj-slide active"><img src="source/img/magnit/magnit.png" alt="Магнит Маркет" loading="lazy"></div>
+          </div>
+          <div class="obj-body">
+            <h3 class="obj-name">Магнит Маркет</h3>
+            <div class="obj-addr"><span class="geo-pin"></span>с. Гольяны, Дачная ул., 2А</div>
+            <a class="obj-map" href="https://yandex.ru/maps/org/magnit_market/36899965299/?ll=53.729912%2C56.759592&z=13" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </article>
+
+        <article class="obj-card fade-up">
+          <div class="obj-slider" data-slider>
+            <div class="obj-slide active"><img src="source/img/avtoservice/avtoservice.png" alt="Агрегат Мастер" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/avtoservice/avtoservice_2.png" alt="Агрегат Мастер" loading="lazy"></div>
+            <div class="obj-slide"><img src="source/img/avtoservice/avtoservice_3.png" alt="Агрегат Мастер" loading="lazy"></div>
+          </div>
+          <div class="obj-body">
+            <h3 class="obj-name">Агрегат Мастер</h3>
+            <div class="obj-addr"><span class="geo-pin"></span>г. Ижевск, ул. Маяковского, 14</div>
+            <a class="obj-map" href="https://yandex.ru/maps/org/agregat_master/167635058071/?ll=53.196884%2C56.821341&z=15" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </article>
+
       </div>
     </div>
   </div>
 
   <!-- CTA -->
   <section class="cta-section" id="contact">
-    <div>
-      <h2 class="cta-title">Готовы обсудить<br>ваш объект?</h2>
+    <div class="cta-main">
+      <div class="section-eyebrow">Бесплатная консультация</div>
+      <h2 class="cta-title">Рассчитаем ваш объект<br><em>за 1 рабочий день</em></h2>
       <p class="cta-sub">
-        Проконсультируем, сделаем предварительный расчет стоимости и предложим варианты оптимизации сроков и затрат. Работаем по договору с фиксированной стоимостью.
+        Оставьте заявку — проконсультируем, сделаем предварительный расчёт стоимости и предложим варианты оптимизации сроков и затрат.
       </p>
+
       <form class="cta-form" onsubmit="return false;">
         <input class="cta-input" type="text" placeholder="Ваше имя">
         <input class="cta-input" type="tel" placeholder="Номер телефона">
-        <button class="btn-dark" type="submit">Отправить</button>
+        <button class="btn-dark" type="submit">Получить расчёт</button>
       </form>
+      <p class="cta-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
     </div>
+
     <div class="cta-phone-block">
-      <div class="cta-phone-label">Звоните прямо сейчас</div>
+      <div class="cta-phone-label">Или позвоните напрямую</div>
       <a href="tel:+79127502877" class="cta-phone">+7 (912) 750-28-77</a>
+      <div class="cta-phone-sub">Пн–Сб, с 9:00 до 19:00</div>
     </div>
   </section>
 
@@ -1291,10 +1538,10 @@
         <ul class="footer-links">
           <li><a href="#services">Монтаж металлокаркасов</a></li>
           <li><a href="#services">Стеновые сэндвич-панели</a></li>
-          <li><a href="#services">Кровельные панели</a></li>
+          <li><a href="#services">Монтаж кровельных систем</a></li>
           <li><a href="#services">Фундаментные работы</a></li>
-          <li><a href="#services">Фасонные элементы</a></li>
-          <li><a href="#services">Демонтаж конструкций</a></li>
+          <li><a href="#services">Производство металлоконструкций</a></li>
+          <li><a href="#services">Продажа стройматериалов</a></li>
         </ul>
       </div>
       <div>
@@ -1346,6 +1593,73 @@
         mobileMenu.classList.remove('open');
         document.body.style.overflow = '';
       });
+    });
+
+    // Hero background cross-fade
+    (function () {
+      const slides = document.querySelectorAll('#heroBg .hero-slide');
+      if (slides.length < 2) return;
+      let i = 0;
+      setInterval(() => {
+        slides[i].classList.remove('active');
+        i = (i + 1) % slides.length;
+        slides[i].classList.add('active');
+      }, 7000);
+    })();
+
+    // Object card sliders (arrows + swipe + dots)
+    document.querySelectorAll('[data-slider]').forEach(slider => {
+      const slides = Array.from(slider.querySelectorAll('.obj-slide'));
+      const total = slides.length;
+      let idx = 0;
+
+      // count badge
+      const count = document.createElement('div');
+      count.className = 'obj-count' + (total < 2 ? ' solo' : '');
+
+      // dots
+      const dots = document.createElement('div');
+      dots.className = 'obj-dots' + (total < 2 ? ' solo' : '');
+      slides.forEach((_, n) => {
+        const d = document.createElement('span');
+        d.className = 'obj-dot' + (n === 0 ? ' active' : '');
+        dots.appendChild(d);
+      });
+      const dotEls = Array.from(dots.children);
+
+      // arrows
+      const prev = document.createElement('button');
+      prev.className = 'obj-arrow prev' + (total < 2 ? ' solo' : '');
+      prev.setAttribute('aria-label', 'Предыдущее фото');
+      prev.innerHTML = '‹';
+      const next = document.createElement('button');
+      next.className = 'obj-arrow next' + (total < 2 ? ' solo' : '');
+      next.setAttribute('aria-label', 'Следующее фото');
+      next.innerHTML = '›';
+
+      function show(n) {
+        slides[idx].classList.remove('active');
+        dotEls[idx] && dotEls[idx].classList.remove('active');
+        idx = (n + total) % total;
+        slides[idx].classList.add('active');
+        dotEls[idx] && dotEls[idx].classList.add('active');
+        count.textContent = (idx + 1) + ' / ' + total;
+      }
+
+      count.textContent = '1 / ' + total;
+      prev.addEventListener('click', () => show(idx - 1));
+      next.addEventListener('click', () => show(idx + 1));
+      slider.append(count, prev, next, dots);
+
+      // touch swipe
+      let startX = null;
+      slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      slider.addEventListener('touchend', e => {
+        if (startX === null) return;
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1));
+        startX = null;
+      }, { passive: true });
     });
   </script>
 </body>
